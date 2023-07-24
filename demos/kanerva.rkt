@@ -1,6 +1,6 @@
 #lang racket
 
-(require "vsa.rkt")
+(require "../vsa.rkt")
 
 ; Create a VSA memory store with the given dimensionality.
 
