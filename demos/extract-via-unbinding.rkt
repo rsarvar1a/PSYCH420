@@ -4,7 +4,7 @@
 
 ; Create a VSA memory store with the given dimensionality.
 
-(define dimensions 10000)
+(define dimensions 1000)
 (define memory (VSA-memory-new dimensions))
 
 ; Specify our information.
@@ -21,10 +21,9 @@
 
 (define scene 
   (VSA-vec-bundle
-	(list 
-	  (VSA-vec-bind (list red square))
-	  (VSA-vec-bind (list blue circle))
-	  (VSA-vec-bind (list green triangle)))))
+	(VSA-vec-bind red square)
+	(VSA-vec-bind blue circle)
+	(VSA-vec-bind green triangle)))
 
 ; We can now use the unbinding operator to extract information through the bundle.
 
@@ -32,3 +31,4 @@
   (VSA-vec-unbind scene square))
 
 (VSA-memory-recall memory colour-of-square)
+

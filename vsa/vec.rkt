@@ -85,7 +85,7 @@
 ; Returns a hypervector that is dissimilar to all input vectors via XORing their representations.
 (define 
   (VSA-vec-bind 
-	[vecs : (Listof VSA-hypervector)])
+	. [vecs : VSA-hypervector *])
   : VSA-hypervector
   (make-VSA-hypervector
 	(build-list
@@ -96,7 +96,7 @@
 ; Returns a hypervector that is maximally similar to all input vectors via component-wise majority voting.
 (define 
   (VSA-vec-bundle 
-	[vecs : (Listof VSA-hypervector)])
+	. [vecs : VSA-hypervector *])
   : VSA-hypervector
   (make-VSA-hypervector
 	(build-list
@@ -127,7 +127,7 @@
 	[u : VSA-hypervector]
 	[v : VSA-hypervector])
   : VSA-hypervector
-  (VSA-vec-bind (list u (VSA-vec-inverse v))))
+  (VSA-vec-bind u (VSA-vec-inverse v)))
 
 ; Unbundles the hypervector v from the bundled hypervector u.
 ; Returns the resulting hypervector.
@@ -136,7 +136,7 @@
 	[u : VSA-hypervector] 
 	[v : VSA-hypervector])
   : VSA-hypervector
-  (VSA-vec-bundle (list u (VSA-vec-negative v))))
+  (VSA-vec-bundle u (VSA-vec-negative v)))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;

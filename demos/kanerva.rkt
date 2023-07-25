@@ -32,25 +32,24 @@
 
 (define america-info 
   (VSA-vec-bundle
-	(list
-	  (VSA-vec-bind (list name (get-vec 'AMERICA)))
-	  (VSA-vec-bind (list capital (get-vec 'WASHINGTONDC)))
-	  (VSA-vec-bind (list currency (get-vec 'DOLLAR))))))
+	(VSA-vec-bind name (get-vec 'AMERICA))
+	(VSA-vec-bind capital (get-vec 'WASHINGTONDC))
+	(VSA-vec-bind currency (get-vec 'DOLLAR))))
 
 (define mexico-info
   (VSA-vec-bundle
-	(list
-	  (VSA-vec-bind (list name (get-vec 'MEXICO)))
-	  (VSA-vec-bind (list capital (get-vec 'MEXICOCITY)))
-	  (VSA-vec-bind (list currency (get-vec 'PESO))))))
+	(VSA-vec-bind name (get-vec 'MEXICO))
+	(VSA-vec-bind capital (get-vec 'MEXICOCITY))
+	(VSA-vec-bind currency (get-vec 'PESO))))
 
 (define country-info-statement 
-  (VSA-vec-bind (list america-info mexico-info)))
+  (VSA-vec-bind america-info mexico-info))
 
 ; We can now retrieve some information from this statement.
 
 (define dollar-of-mexico 
-  (VSA-vec-bind (list country-info-statement (get-vec 'DOLLAR))))
+  (VSA-vec-bind country-info-statement (get-vec 'DOLLAR)))
 
 (VSA-memory-recall country-info-memory dollar-of-mexico)
 ; if all goes well, spits out 'PESO
+
