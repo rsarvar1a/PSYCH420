@@ -19,23 +19,20 @@
 
 ; Explicitly creates a hypervector with the given contents.
 (define (VSA-vec-from data)
-  (make-VSA-hypervector 
-	(list->array data)))
+  (make-VSA-hypervector data))
 
 ; Returns a set of hypervectors that are identity elements over binding.
 ; (bind (VSA-identity (len x)) x) -> x
 (define (VSA-vec-identity dimensions)
   (make-VSA-hypervector
-	(list->array
-	  (build-list dimensions (λ (_) 0)))))
+	(build-list dimensions (λ (_) 0))))
 
 ; Returns a hypervector sampled according to the input density at random from n-dimensional boolean space.
 (define (VSA-vec-random dimensions #:density [density 0.5])
   (make-VSA-hypervector
-	(list->array
-	  (build-list 
-		dimensions
-		(λ (_2) (if (< (random) density) 1 0))))))
+	(build-list 
+	  dimensions
+	  (λ (_2) (if (< (random) density) 1 0)))))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;
@@ -45,15 +42,15 @@
 
 ; Gets the fixed dimensionality of a list of hypervectors.
 (define (__lst-dimensions lst)
-  (length (array->list (VSA-hypervector-data (first lst)))))
+  (length (VSA-hypervector-data (first lst))))
 
 ; Given a list of hypervectors, creates a list by extracting the component of each hypervector matching the input dimension.
 (define (__gather-components lst dim)
   (map 
 	(λ (vec) 
-	  (array-ref 
+	  (list-ref 
 		(VSA-hypervector-data vec)
-		(make-vector 1 dim)))
+		dim))
 	lst))
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -66,19 +63,17 @@
 ; Returns a hypervector that is dissimilar to all input vectors via XORing their representations.
 (define (VSA-vec-bind vecs)
   (make-VSA-hypervector
-	(list->array
-	  (build-list
-		(__lst-dimensions vecs)
-		(λ (dim) (__intxor (__gather-components vecs dim)))))))
+	(build-list
+	  (__lst-dimensions vecs)
+	  (λ (dim) (__intxor (__gather-components vecs dim))))))
 
 ; Bundles a hypervector v or list of hypervectors vs to the hypervector u.
 ; Returns a hypervector that is maximally similar to all input vectors via component-wise majority voting.
 (define (VSA-vec-bundle vecs)
   (make-VSA-hypervector
-	(list->array
-	  (build-list
-		(__lst-dimensions vecs)
-		(λ (dim) (__mode (__gather-components vecs dim)))))))
+	(build-list
+	  (__lst-dimensions vecs)
+	  (λ (dim) (__mode (__gather-components vecs dim))))))
 
 ; Returns the binding-inverse of u. In the BSC model, each vector is its own inverse.
 (define (VSA-vec-inverse vec)
@@ -87,10 +82,9 @@
 ; Returns the bundling-inverse of u. In the BSC model, each vector's bundling-inverse is its boolean negation.
 (define (VSA-vec-negative vec)
   (make-VSA-hypervector
-	(list->array
-	  (map
-		(λ (component) (- 1 component))
-		(array->list (VSA-hypervector-data vec))))))
+	(map
+	  (λ (component) (- 1 component))
+	  (VSA-hypervector-data vec))))
 
 ; Unbinds the hypervector v from the bound hypervector u.
 ; Returns the resulting hypervector.

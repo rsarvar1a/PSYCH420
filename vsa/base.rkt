@@ -14,14 +14,6 @@
 
 ;;;;;;;;;;;;;;;;;;;;
 ;
-;	DATATYPES
-;
-;;;;;;;;;;;;;;;;;;;;
-
-(require math/array)
-
-;;;;;;;;;;;;;;;;;;;;
-;
 ;	MATH HELPERS
 ;
 ;;;;;;;;;;;;;;;;;;;;
@@ -45,6 +37,5 @@
 ;
 ;;;;;;;;;;;;;;;;;;;;
 
-(provide (all-defined-out)
-		 (all-from-out math/array))
+(provide (all-defined-out))
 
